@@ -27,7 +27,7 @@ app.get('/', function(req, res) {
 app.get('/blog', function(req, res) {
   Blog.find(function(err, blogData) {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
       res.render('index', {blogData: blogData});
     }
