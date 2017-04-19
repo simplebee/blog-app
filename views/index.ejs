@@ -3,10 +3,10 @@
 <h1>Blog</h1>
 
 <% blogData.forEach(function (blog) { %>
-  <h3><%= blog.title %></h3>
+  <h2><%= blog.title %></h2>
   <img src="<%= blog.image %>">
   <p><%= blog.body %></p>
-  <p><%= blog.create %></p>
+  <p><%= blog.created %></p>
 <% }); %>
 
 <% include ./partials/footer %>

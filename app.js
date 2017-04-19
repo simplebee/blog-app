@@ -5,6 +5,8 @@ var express     = require('express'),
 
 // Express config
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Mongoose schema and model
 mongoose.connect('mongodb://localhost/blog-app');
@@ -13,7 +15,7 @@ var blogSchema = new mongoose.Schema({
   title: String,
   image: String,
   body: String,
-  create: {type: Date, default: Date.now}
+  created: {type: Date, default: Date.now}
 });
 
 var Blog = mongoose.model('Blog', blogSchema);
