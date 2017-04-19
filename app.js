@@ -25,7 +25,13 @@ app.get('/', function(req, res) {
 
 // Index
 app.get('/blog', function(req, res) {
-  res.render('index');
+  Blog.find(function(err, blogData) {
+    if (err) {
+      console.log(err)
+    } else {
+      res.render('index', {blogData: blogData});
+    }
+  });
 });
 
 app.listen(3000);
