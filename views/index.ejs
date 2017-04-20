@@ -1,13 +1,15 @@
 <% include ./partials/header %>
 
-<h1>Blog</h1>
+<div class="ui text container segment">
+  <div class="ui huge header">Blog</div>
 
-<% blogData.forEach(function (blog) { %>
-  <h2><%= blog.title %></h2>
-  <img src="<%= blog.image %>">
-  <p><%= blog.body %></p>
-  <p><%= blog.created %></p>
-  <a href="/blog/<%= blog._id %>">View More</a>
-<% }); %>
+  <% blogData.forEach(function (blog) { %>
+    <h2><%= blog.title %></h2>
+    <img src="<%= blog.image %>">
+    <p><%= blog.created.toDateString() %></p>
+    <p><%= blog.body.substring(0, 100) %>...</p>
+    <a class="ui blue button" href="/blog/<%= blog._id %>">View More</a>
+  <% }); %>
+</div>
 
 <% include ./partials/footer %>

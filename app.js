@@ -59,7 +59,7 @@ app.get('/blog/:id', function(req, res) {
   var id = req.params.id;
   Blog.findById(id, function(err, blogData) {
     if (err) {
-      console.log(err);
+      res.redirect('/blog');
     } else {
       res.render('show', {blogData: blogData});
     }
