@@ -10,7 +10,10 @@
           <p><%= blogData.created.toDateString() %></p>
           <p><%- blogData.body %></p>
         </div>
-        <a href="/blog/<%= blogData._id %>/edit" class="ui orange button">Edit Post</a>
+        <a href="/blog/<%= blogData._id %>/edit" class="ui orange button">Edit</a>
+        <form class="button__delete" action="/blog/<%= blogData._id %>?_method=DELETE" method="POST">
+          <button class="ui red button">Delete</button>
+        </form>
       </div>
     </div>
   </div>

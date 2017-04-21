@@ -1,7 +1,7 @@
 var express         = require('express'),
     app             = express(),
     mongoose        = require('mongoose'),
-    bodyParser      = require('body-parser');
+    bodyParser      = require('body-parser'),
     methodOverride  = require('method-override');
 
 // Express config
@@ -47,11 +47,11 @@ app.get('/blog/new', function(req, res) {
 // Create - create new post
 app.post('/blog', function(req, res) {
   var blogData = req.body.blog;
-  Blog.create(blogData, function(err) {
+  Blog.create(blogData, function(err, blogData) {
     if (err) {
       res.redirect('/blog/new');
     } else {
-      res.redirect('/blog');
+      res.redirect('/blog/' + blogData._id);
     }
   });
 });
@@ -75,7 +75,7 @@ app.get('/blog/:id/edit', function(req, res) {
     if (err) {
       res.redirect('/blog/' + id);
     } else {
-      res.render('edit', {blogData, blogData});
+      res.render('edit', {blogData: blogData});
     }
   });
 });
@@ -89,6 +89,18 @@ app.put('/blog/:id', function(req, res) {
       res.redirect('/blog/' + id + '/edit');
     } else {
       res.redirect('/blog/' + id);
+    }
+  });
+});
+
+// Delete - delete a post
+app.delete('/blog/:id', function(req, res) {
+  var id = req.params.id;
+  Blog.findByIdAndRemove(id, function(err) {
+    if (err) {
+      res.redirect('/blog/' + id);
+    } else {
+      res.redirect('/blog');
     }
   });
 });

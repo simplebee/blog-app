@@ -1,3 +1,7 @@
 .container.segment {
   margin-top: 6em;
 }
+
+.button__delete {
+  display: inline;
+}
