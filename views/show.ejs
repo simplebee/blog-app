@@ -2,18 +2,22 @@
 
 <div class="ui text container segment">
   <div class="ui huge header"><%= blogData.title %></div>
-  <img class="ui centered rounded image" src="<%= blogData.image %>">
+  <img class="ui medium centered rounded image" src="<%= blogData.image %>">
   <div class="ui items">
     <div class="item">
       <div class="content">
-        <div class="description">
+        <div class="meta">
           <p><%= blogData.created.toDateString() %></p>
+        </div>
+        <div class="description">
           <p><%- blogData.body %></p>
         </div>
-        <a href="/blog/<%= blogData._id %>/edit" class="ui orange button">Edit</a>
-        <form class="button__delete" action="/blog/<%= blogData._id %>?_method=DELETE" method="POST">
-          <button class="ui red button">Delete</button>
-        </form>
+        <div class="extra">
+          <a href="/blog/<%= blogData._id %>/edit" class="ui orange button">Edit</a>
+          <form class="button__delete" action="/blog/<%= blogData._id %>?_method=DELETE" method="POST">
+            <button class="ui red button">Delete</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
