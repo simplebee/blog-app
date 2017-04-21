@@ -1,8 +1,8 @@
 <% include ./partials/header %>
 
 <div class="ui text container segment">
-  <div class="ui huge header">Edit Blog</div>
-  <form class="ui form" action="/blog" method="POST">
+  <div class="ui huge header">Edit <%= blogData.title %></div>
+  <form class="ui form" action="/blog/<%= blogData._id %>?_method=PUT" method="POST">
     <div class="field">
       <label>Title</label>
       <input type="text" name="blog[title]" value="<%= blogData.title %>" placeholder="Title">
@@ -15,7 +15,7 @@
       <label>Blog Post</label>
       <textarea name="blog[body]" placeholder="Type something here"><%= blogData.body %></textarea>
     </div>
-    <input class="ui green button" type="submit">
+    <button class="ui green button">Update Post</button>
   </form>
 </div>
 
