@@ -21,17 +21,47 @@ var blogSchema = new mongoose.Schema({
 var Blog = mongoose.model('Blog', blogSchema);
 
 // Routes
+// Landing page
 app.get('/', function(req, res) {
   res.redirect('/blog');
 });
 
-// Index
+// Index - show all posts
 app.get('/blog', function(req, res) {
   Blog.find(function(err, blogData) {
     if (err) {
       console.log(err);
     } else {
       res.render('index', {blogData: blogData});
+    }
+  });
+});
+
+// New - show form to create new post
+app.get('/blog/new', function(req, res) {
+  res.render('new');
+});
+
+// Create - create new post
+app.post('/blog', function(req, res) {
+  var blogData = req.body.blog;
+  Blog.create(blogData, function(err) {
+    if (err) {
+      res.redirect('/blog/new');
+    } else {
+      res.redirect('/blog');
+    }
+  });
+});
+
+// Show - display a post
+app.get('/blog/:id', function(req, res) {
+  var id = req.params.id;
+  Blog.findById(id, function(err, blogData) {
+    if (err) {
+      res.redirect('/blog');
+    } else {
+      res.render('show', {blogData: blogData});
     }
   });
 });
