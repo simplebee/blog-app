@@ -37,7 +37,7 @@ app.get('/blog', function(req, res) {
   });
 });
 
-// New - show form to create new post
+// New - form to create new post
 app.get('/blog/new', function(req, res) {
   res.render('new');
 });
@@ -54,7 +54,7 @@ app.post('/blog', function(req, res) {
   });
 });
 
-// Show - display a post
+// Show - show a post
 app.get('/blog/:id', function(req, res) {
   var id = req.params.id;
   Blog.findById(id, function(err, blogData) {
@@ -65,5 +65,19 @@ app.get('/blog/:id', function(req, res) {
     }
   });
 });
+
+// Edit - form to edit a post
+app.get('/blog/:id/edit', function(req, res) {
+  var id = req.params.id;
+  Blog.findById(id, function(err, blogData) {
+    if (err) {
+      res.redirect('/blog/' + id);
+    } else {
+      res.render('edit', {blogData, blogData});
+    }
+  });
+});
+
+// Update - update a post
 
 app.listen(3000);
