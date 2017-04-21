@@ -1,13 +1,15 @@
-var express         = require('express'),
-    app             = express(),
-    mongoose        = require('mongoose'),
-    bodyParser      = require('body-parser'),
-    methodOverride  = require('method-override');
+var express           = require('express'),
+    app               = express(),
+    mongoose          = require('mongoose'),
+    bodyParser        = require('body-parser'),
+    expressSanitizer  = require('express-sanitizer'),
+    methodOverride    = require('method-override');
 
 // Express config
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressSanitizer());
 app.use(methodOverride('_method'));
 
 // Mongoose schema and model
@@ -46,8 +48,9 @@ app.get('/blog/new', function(req, res) {
 
 // Create - create new post
 app.post('/blog', function(req, res) {
-  var blogData = req.body.blog;
-  Blog.create(blogData, function(err, blogData) {
+  var blogNew = req.body.blog;
+  blogNew.body = req.sanitize(blogNew.body);
+  Blog.create(blogNew, function(err, blogData) {
     if (err) {
       res.redirect('/blog/new');
     } else {
@@ -84,6 +87,7 @@ app.get('/blog/:id/edit', function(req, res) {
 app.put('/blog/:id', function(req, res) {
   var id = req.params.id;
   var blogUpdate = req.body.blog;
+  blogUpdate.body = req.sanitize(blogUpdate.body);
   Blog.findByIdAndUpdate(id, blogUpdate, function(err) {
     if (err) {
       res.redirect('/blog/' + id + '/edit');
